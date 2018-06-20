@@ -34,11 +34,27 @@ public class Level {
 		pixels = new int[width*height];
 		newpixels = new int[width*height];
 		
-		pixels[5] = 1;
-		pixels[6+width] = 1;
-		pixels[7+width] = 1;
-		pixels[5+2*width] = 1;
-		pixels[6+2*width] = 1;
+//		randomInit();
+	}
+	
+	public void loadPattern(int[][] pattern, int xo, int yo) {
+		for(int y = 0; y < pattern.length; y++) {
+			int ya = y + yo;
+			for(int x = 0; x < pattern[y].length; x++) {
+				int xa = x + xo;
+				pixels[indexOf(xa, ya)] = pattern[y][x];
+			}
+		}
+	}
+	
+	public int indexOf(int x, int y) {
+		return (x+width)%width + (y+height)%height*width;
+	}
+	
+	public void randomInit() {
+		for(int i = 0; i < pixels.length; i++) {
+			pixels[i] = Math.random() < 0.5 ? 0:1;
+		}
 	}
 	
 	public void tick() {
@@ -79,8 +95,12 @@ public class Level {
 		return pixels[(x+width)%width + ((y+height)%height)*width];
 	}
 	
-	public int[] getPixels() {
-		return pixels;
+	public int[] getImage(boolean inverse, int color) {
+		int[] result = new int[pixels.length];
+		for(int i = 0; i < result.length; i++) {
+			result[i] = (inverse ? (1-pixels[i]):pixels[i])*color;
+		}
+		return result;
 	}
 	
 }

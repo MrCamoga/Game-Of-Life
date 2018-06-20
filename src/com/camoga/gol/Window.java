@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 
 public class Window extends JFrame {
 	
-	public static int SCALE = 6;
+	public static int SCALE = 4;
 	public static int WIDTH, HEIGHT;
 	public static Dimension DIMENSION;
 	
@@ -49,7 +49,7 @@ public class Window extends JFrame {
 	public void run() {
 		long last = System.nanoTime();
 		
-		double ns = 1e9/100D;
+		double ns = 1e9/60;
 		
 		int ticks = 0;
 		int frames = 0;
@@ -88,7 +88,7 @@ public class Window extends JFrame {
 		int[] p = life.render();
 		
 		for(int i = 0; i < pixels.length; i++) {
-			pixels[i] = p[i]*0xffffff;
+			pixels[i] = p[i];
 		}
 		
 		g.drawImage(image, 0, 0, DIMENSION.width, DIMENSION.height, null);

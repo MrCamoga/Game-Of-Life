@@ -2,11 +2,13 @@ package com.camoga.gol;
 
 public class GameOfLife {
 
-	private Level level;
+	public Level level;
 	
-	public GameOfLife(boolean windowed) {
-		if(windowed) new Window(this, 100, 100);
-		level = new Level(100, 100);
+	public GameOfLife(boolean windowed, int width, int height) {
+		level = new Level(width, height);
+		if(windowed) new Window(this, width, height);
+		
+		level.loadPattern(Pattern.DIEHARD, 10, 10);
 	}
 	
 	public void tick() {
@@ -14,10 +16,10 @@ public class GameOfLife {
 	}
 	
 	public int[] render() {		
-		return level.getPixels();
+		return level.getImage(true,0xffffff);
 	}
 	
 	public static void main(String[] args) {
-		new GameOfLife(true);
+		new GameOfLife(true, 100, 100);
 	}
 }
